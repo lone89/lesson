@@ -117,7 +117,7 @@
 # print(" ".join(a))
 
 
-c = 5
+# c = 5
 
 # def b(num1):
 #     def c(num1):
@@ -149,25 +149,157 @@ c = 5
 # print(nine(9))
 
 
-import time
+# import time
+#
+#
+# def progress_time(show_print, to_do):
+#     def inner(func):
+#         result = None
+#         def wrapper(*args, **kwargs):
+#             nonlocal result
+#             start = time.time()
+#             if not to_do:
+#                 result = func(*args, **kwargs)
+#             finish = time.time()
+#             if show_print:
+#                 print(f'Функция - {func.__name__} отработала за', finish - start)
+#             return result
+#         return wrapper
+#     return inner
+#
+# @progress_time(show_print=True, to_do=False)
+# def medium(number):
+#     time.sleep(number)
+#     return "medium"
+#
+# medium(4)
+#
+# print(progress_time(show_print=True, to_do=False)(medium)(4))
 
 
-def progress_time(show_print, to_do):
-    def inner(func):
-        result = None
-        def wrapper(*args, **kwargs):
-            nonlocal result
-            start = time.time()
-            if not to_do:
-                result = func(*args, **kwargs)
-            finish = time.time()
-            if show_print:
-                print(f'Функция - {func.__name__} отработала за', finish - start)
-            return result
-        return wrapper
-    return inner
-def medium(number):
-    time.sleep(number)
-    return "medium"
+# a = [i for i in range(100) if i % 2 == 0]
+# b = {i for i in range(100)}
+# c = {i: v for i, v in enumerate(range(100))}
+# v = tuple([i for i in range(100)])
+# h = frozenset([i for i in range(100)])
+#
+#
+# print(h)
 
-print(progress_time(show_print=True, to_do=False)(medium)(4))
+import sys
+
+# a = (i for i in range(10000))
+# print(a)
+# print(sys.getsizeof(b))
+# print(sys.getsizeof(a))
+#
+# for i in a:
+#     print(i)
+#     print("END")
+# print(next(a))
+#
+# for i in a:
+#     print(i)
+
+
+
+# def gen():
+#     for i in range(100):
+#         yield i
+#
+# a = gen()
+# print(next(a))
+#
+# for i in range(10):
+#     print(i ** 2)
+#
+# b = "pes"
+#
+# print(next(a))
+
+
+# def gen():
+#     yield "1"
+#     yield "2"
+#     yield "3"
+#     yield "4"
+#     yield "5"
+#     yield "6"
+#
+# a = gen()
+#
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+# print(next(a))
+
+
+# def gen():  # (i for i in range(100) if i % 2 == 0)
+#     for i in range(100):
+#         if i % 2 == 0:
+#             yield i
+
+# def gen():  # (i if i % 2 == 0 else 10 for i in range(100))
+#     for i in range(100):
+#         if i % 2 == 0:
+#             yield i
+#         else:
+#             yield 10
+#
+# print(list(gen()))
+
+
+# def asd():
+#     for i in range(100):
+#         yield i
+#
+# def gen():
+#     yield from asd()
+#
+#     for i in ["a", "b", "c"]:
+#         yield i
+
+
+# def gen():
+#     n = 2
+#     for i in range(1, 5):
+#         b = yield i ** n
+#         if b is not None:
+#             print(b)
+#
+# a = gen()
+#
+# print(next(a))
+# print(next(a))
+
+# a = open("first.txt", "w")
+#
+# a.write("123123123123213")
+# a.read()
+#
+# a.close()
+#
+# a = open("first.txt", "r")
+#
+# print(a.readline())
+#
+# a.close()
+
+import json
+import pickle
+
+with open("first.json", "w+") as file:
+    json.dump({1: 2, "asd": "asd"}, file)
+
+with open("first.json", "r+") as file:
+    a = json.load(file)
+    print(a)
+
+
+b = json.dumps({1: 2, "123": "123", 2: [1,23,34,7]})
+print(type(b))
+c = json.loads(b)
+print(type(c))
