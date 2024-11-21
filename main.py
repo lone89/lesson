@@ -284,22 +284,98 @@ import sys
 #
 # a = open("first.txt", "r")
 #
-# print(a.readline())
+# a.seek(0)
 #
 # a.close()
 
 import json
 import pickle
 
-with open("first.json", "w+") as file:
-    json.dump({1: 2, "asd": "asd"}, file)
+# with open("first.json", "w+") as file:
+#     json.dump({1: 2, "asd": "asd"}, file)
+#
+# with open("first.json", "r+") as file:
+#     a = json.load(file)
+    # print(a)
 
-with open("first.json", "r+") as file:
-    a = json.load(file)
-    print(a)
+
+# t = '{"1": 2, "asd": "asd"}'
+# print(json.loads(t).get("asd"))
+# b = json.dumps({1: 2, "123": "123", 2: [1,23,34,7]})
+# print(b)
+# print(type(b))
+# c = json.loads(b)
+# print(type(c))
 
 
-b = json.dumps({1: 2, "123": "123", 2: [1,23,34,7]})
-print(type(b))
-c = json.loads(b)
-print(type(c))
+# a = "фывфыв".encode("utf-8")
+# print(print(type(a)))
+#
+#
+# print(bytes([1, 2, 3, 4, 5]).decode("utf-8"))
+# print(bytearray(a))
+#
+# print(b"aosbda")
+#
+#
+# with open("firsts.pickle", "wb") as file:
+#     pickle.dump({1: 2, "123": "123", 2: [1,23,34,7]}, file)
+#
+# with open("firsts.pickle", "rb") as file:
+#     print(pickle.load(file))
+#
+# a = pickle.dumps({"12": 1})
+#
+
+# a = 5
+#
+# if a - 5 == 0:
+#     raise ZeroDivisionError("minus 5 is locked")
+
+
+#try except
+#try finally
+#try except finally
+#try except else finally
+
+# try:
+#     print(1 / 1)
+# except TypeError as err:
+#      print("SYSADMIN")
+# except ZeroDivisionError as err:
+#     print("DEVELOPER")
+# else:
+#     print("No errors")
+# finally:
+#     print("Always")
+
+# try:
+#     print(1/0)
+# finally:
+#     print("awlways")
+
+
+
+def aseriks_five(safe_mode=True):
+    def inner(func):
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs) ** 5
+            except TypeError as err:
+                if safe_mode:
+                    return "Мне нужно число"
+                raise err
+        return wrapper
+    return inner
+
+
+def a():
+    return 5
+
+def b():
+    return "asdasd"
+
+print(aseriks_five()(a)())
+print(aseriks_five()(b)())
+print(aseriks_five(safe_mode=False)(b)())
+
