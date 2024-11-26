@@ -356,26 +356,130 @@ import pickle
 
 
 
-def aseriks_five(safe_mode=True):
-    def inner(func):
-        def wrapper(*args, **kwargs):
-            try:
-                return func(*args, **kwargs) ** 5
-            except TypeError as err:
-                if safe_mode:
-                    return "Мне нужно число"
-                raise err
-        return wrapper
-    return inner
+# def aseriks_five(safe_mode=True):
+#     def inner(func):
+#         def wrapper(*args, **kwargs):
+#             try:
+#                 return func(*args, **kwargs) ** 5
+#             except TypeError as err:
+#                 if safe_mode:
+#                     return "Мне нужно число"
+#                 raise err
+#         return wrapper
+#     return inner
+#
+#
+# def a():
+#     return 5
+#
+# def b():
+#     return "asdasd"
+#
+# print(aseriks_five()(a)())
+# print(aseriks_five()(b)())
+# print(aseriks_five(safe_mode=False)(b)())
+#
 
 
-def a():
-    return 5
+# class MyFamily:  #class name (Camel Case)
+#     son = "Kirill"  # Attributes
+#     sister = "Nastya"
+#     cat = "Sima"
+#
+# a = MyFamily()  # Instance of class
+# print(a.son)
+# print(a.sister)
+# print(a.cat)
+# a.dog = "Simba"
+#
+# print(a.dog)
+# print(MyFamily.__dict__)
+# print(a.__dict__)
+#
+# b = MyFamily()
+# print(b.son)
+# print(b.sister)
+# print(b.cat)
+#
+# print(a, b)
 
-def b():
-    return "asdasd"
 
-print(aseriks_five()(a)())
-print(aseriks_five()(b)())
-print(aseriks_five(safe_mode=False)(b)())
+class Car(object):
+    def __init__(self, model, engine, VIN):
+        self.model = model
+        self.engine = engine
+        self.VIN = VIN
+
+    def get_full_data(self):
+        return ", ".join((f"{key} - {value}" for key, value in self.__dict__.items()))
+
+    def __add__(self, other):
+        if type(other) is Car:
+            return self.engine + other.engine
+
+        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+
+    def __radd__(self, other):
+        if type(other) is int or type(other) is float:
+            return self.engine + other
+
+        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+
+    def __iadd__(self, other):
+        if type(other) is int or type(other) is float:
+            self.engine += other
+            return self
+
+        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+
+    def __mul__(self, other):
+        if type(other) is Car:
+            return self.engine * other.engine
+        elif type(other) is int or type(other) is float:
+            return self.engine * other
+
+        raise TypeError(f"Unsupported operator * between ({type(other)} and {Car})")
+
+    def __gt__(self, other):
+        if type(other) is Car:
+            return self.engine > other.engine
+        elif type(other) is int or type(other) is float:
+            return self.engine > other
+
+        raise TypeError(f"Unsupported operator > between ({type(other)} and {Car})")
+
+    def __eq__(self, other):
+        if type(other) is Car:
+            return self.engine == other.engine
+        elif type(other) is int or type(other) is float:
+            return self.engine == other
+
+        raise TypeError(f"Unsupported operator == between ({type(other)} and {Car})")
+
+    def __bool__(self):
+        return True if self.engine > 1 else False
+
+    def __truediv__(self, other):
+        if isinstance(other, Car):
+            return self.engine / other.engine
+        elif isinstance(other, (int, float)):
+            return self.engine / other
+
+        raise TypeError(f"Unsupported operator / between ({type(other)} and {Car})")
+
+    def __len__(self):
+        return len(self.__dict__)
+
+
+
+bmw_1 = Car("E30", 3.0, 1)
+bmw_2 = Car("E46", 0.5, 2)
+bmw_3 = Car("E90", 5.0, 3)
+
+bmw_1.wheels = 4
+
+bmw_1 += 10
+print(bmw_1 / bmw_2)
+print(bmw_1 / 1)
+
 
