@@ -404,82 +404,239 @@ import pickle
 # print(a, b)
 
 
-class Car(object):
-    def __init__(self, model, engine, VIN):
+# class Car:
+#     wheels = 4
+#
+#     def __init__(self, model, engine, VIN):
+#         self._model = model
+#         self.engine = engine
+#         self.__VIN = VIN
+#
+#     def get_full_data(self):
+#         return ", ".join((f"{key} - {value}" for key, value in self.__dict__.items()))
+#
+#     def __add__(self, other):
+#         if type(other) is Car:
+#             return self.engine + other.engine
+#
+#         raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+#
+#     def __radd__(self, other):
+#         if type(other) is int or type(other) is float:
+#             return self.engine + other
+#
+#         raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+#
+#     def __iadd__(self, other):
+#         if type(other) is int or type(other) is float:
+#             self.engine += other
+#             return self
+#
+#         raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+#
+#     def __mul__(self, other):
+#         if type(other) is Car:
+#             return self.engine * other.engine
+#         elif type(other) is int or type(other) is float:
+#             return self.engine * other
+#
+#         raise TypeError(f"Unsupported operator * between ({type(other)} and {Car})")
+#
+#     def __gt__(self, other):
+#         if type(other) is Car:
+#             return self.engine > other.engine
+#         elif type(other) is int or type(other) is float:
+#             return self.engine > other
+#
+#         raise TypeError(f"Unsupported operator > between ({type(other)} and {Car})")
+#
+#     def __eq__(self, other):
+#         if type(other) is Car:
+#             return self.engine == other.engine
+#         elif type(other) is int or type(other) is float:
+#             return self.engine == other
+#
+#         raise TypeError(f"Unsupported operator == between ({type(other)} and {Car})")
+#
+#     def __bool__(self):
+#         return True if self.engine > 1 else False
+#
+#     def __truediv__(self, other):
+#         print("ДЕЛЕНИЕ В КЛАССЕ КАР")
+#         if isinstance(other, Car):
+#             return self.engine / other.engine
+#         elif isinstance(other, (int, float)):
+#             return self.engine / other
+#
+#         raise TypeError(f"Unsupported operator / between ({type(other)} and {Car})")
+#
+#     def __len__(self):
+#         return len(self.__dict__)
+#
+#
+#
+# bmw_1 = Car("E30", 3.0, 1)
+# bmw_2 = Car("E46", 0.5, 2)
+# bmw_3 = Car("E90", 5.0, 3)
+#
+# bmw_1._model = "E20"
+# print(bmw_1._model)
+# print(bmw_1._Car__VIN)
+
+
+# class Penguin:
+#     def fly(self):
+#         return "Я не умею летать"
+#
+# class Bird:
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def fly(self):
+#         return "Я летаю"
+#
+#
+# a = [Penguin(), Penguin(), Bird(name='Golub'), Bird(name='Vorona')]
+#
+# for i in a:
+#     print(i.fly())
+
+
+class Car:
+    wheels = 4
+    cruise_control = True
+
+    def __init__(self, model, VIN):
+        print("CAR")
         self.model = model
-        self.engine = engine
         self.VIN = VIN
 
-    def get_full_data(self):
-        return ", ".join((f"{key} - {value}" for key, value in self.__dict__.items()))
+    def get_full_info(self):
+        return f"model - {self.model}, VIN - {self.VIN}"
 
-    def __add__(self, other):
-        if type(other) is Car:
-            return self.engine + other.engine
 
-        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
+class Peugeot(Car):
+    def __init__(self, model, VIN, pnevma):
+        self.pnevma = pnevma
 
-    def __radd__(self, other):
-        if type(other) is int or type(other) is float:
-            return self.engine + other
+        super().__init__(model, VIN)
 
-        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
-
-    def __iadd__(self, other):
-        if type(other) is int or type(other) is float:
-            self.engine += other
-            return self
-
-        raise TypeError(f"Unsupported operator + between ({type(other)} and {Car})")
-
-    def __mul__(self, other):
-        if type(other) is Car:
-            return self.engine * other.engine
-        elif type(other) is int or type(other) is float:
-            return self.engine * other
-
-        raise TypeError(f"Unsupported operator * between ({type(other)} and {Car})")
-
-    def __gt__(self, other):
-        if type(other) is Car:
-            return self.engine > other.engine
-        elif type(other) is int or type(other) is float:
-            return self.engine > other
-
-        raise TypeError(f"Unsupported operator > between ({type(other)} and {Car})")
-
-    def __eq__(self, other):
-        if type(other) is Car:
-            return self.engine == other.engine
-        elif type(other) is int or type(other) is float:
-            return self.engine == other
-
-        raise TypeError(f"Unsupported operator == between ({type(other)} and {Car})")
-
-    def __bool__(self):
-        return True if self.engine > 1 else False
-
-    def __truediv__(self, other):
-        if isinstance(other, Car):
-            return self.engine / other.engine
-        elif isinstance(other, (int, float)):
-            return self.engine / other
-
-        raise TypeError(f"Unsupported operator / between ({type(other)} and {Car})")
-
-    def __len__(self):
-        return len(self.__dict__)
+    def get_full_info(self):
+        return super().get_full_info() + f" ,pnevma - {self.pnevma}"
 
 
 
-bmw_1 = Car("E30", 3.0, 1)
-bmw_2 = Car("E46", 0.5, 2)
-bmw_3 = Car("E90", 5.0, 3)
+class Volkswagen(Car):
+    def __init__(self, model, VIN, factory):
+        print("VOLK")
+        self.factory = factory
 
-bmw_1.wheels = 4
+        super().__init__(model, VIN)
 
-bmw_1 += 10
-print(bmw_1 / bmw_2)
-print(bmw_1 / 1)
+    def get_factory(self):
+        return self.factory
+
+class Porsche(Volkswagen):
+    def __init__(self, model, VIN, factory, is_sport):
+        print("PORCHE")
+        self.is_sport = is_sport
+
+        super().__init__(model, VIN, factory)
 
 
+# class Citroen(Car):
+#     pass
+#
+#
+# s90 = Porsche(model='Cayenne', VIN=1, factory="Brugge", is_sport=False)
+# print(s90.__dict__)
+# print(Porsche.__dict__)
+# print(s90.get_factory(), s90.get_full_info())
+
+
+# class O:
+#     pass
+#
+# class C(O):
+#     pass
+#
+# class A(O):
+#     pass
+#
+# class D(O):
+#     pass
+#
+# class B(O):
+#     pass
+#
+# class E(O):
+#     pass
+#
+# class K1(C, A, B):
+#     pass
+#
+# class K3(A, D):
+#     pass
+#
+# class K2(B, D, E):
+#     pass
+#
+# class Z(K1, K3, K2):
+#     pass
+#
+# c = Z()
+# print(Z.__mro__)
+
+
+class Car:
+    def __get__(self, instance, owner):
+        if instance.has_car:
+            return instance.car_model
+
+        return "Машины нет"
+
+    def __set__(self, instance, value):
+        if not instance.has_car:
+            instance.car_model = value
+            instance.has_car = True
+
+            print("Машину установил")
+
+            return
+
+        print("У тебя уже есть машина")
+
+    def __delete__(self, instance):
+        print("Удаление атрибута")
+        del instance.car_model
+        instance.has_car = False
+
+
+class Person:
+    car = Car()
+
+    def __init__(self, name, has_car=False):
+        self.name = name
+        self.has_car = has_car
+
+    def get_name(self):
+        return f"Name - {self.name}"
+
+
+kirill = Person('Kirill')
+
+print(kirill.car)
+
+kirill.car = "Niva"
+
+print(kirill.car)
+
+kirill.car = "LAMBORGINI"
+
+print(kirill.car)
+
+del kirill.car
+
+kirill.car = "LAMBORGINI"
+
+print(kirill.car)
